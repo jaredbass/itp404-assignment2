@@ -1,0 +1,109 @@
+<script>
+//Q1
+
+//object
+var string = {
+  name: string,
+ 
+  //method/function
+  pluralize: function(string){
+      if(string.substring(string.length-1) == 'y') {
+         console.log(string.substring(0, string.length-1) + 'ies');
+        
+        
+      }
+    
+    else{ 
+        console.log(string + 's');
+        
+      }
+    
+  }
+  
+}
+
+string.pluralize('baby'); // returns babies
+string.pluralize('cat'); // returns cats
+
+
+//q2
+
+
+function Book(accessor){
+   this.title = accessor.title
+   this.quantity = accessor.quantity;
+   this.price = accessor.price;
+   
+}
+
+var oojsBook = new Book({ title: 'Object Oriented JavaScript', 
+                         quantity: 2, price: 10 });
+
+Book.prototype.getSubtotal = function(){
+  return this.quantity * this.price;
+}
+
+// console.log(oojsBook.title); // Object Oriented JavaScript
+// console.log(oojsBook.quantity); // 2
+// console.log(oojsBook.price); // 10
+// console.log(oojsBook.getSubtotal()); // 20
+
+function ShoppingCart(cart){
+  this.cart = cart;
+}
+
+var book1 = new Book({ title: 'Object Oriented JavaScript', quantity: 1, price: 10 });
+var book2 = new Book({ title: 'JavaScript Web Applications', quantity: 2, price: 15 });
+var book3 = new Book({ title: 'PHP Object Oriented Solutions', quantity: 1, price: 20 });
+var book4 = new Book({ title: 'Head First Java', quantity: 5, price: 20 });
+
+
+var cart = new ShoppingCart([book1, book2]);
+
+ShoppingCart.prototype.add = function(book){
+  
+  this.cart.push(book);
+ 
+  
+}
+
+cart.add(book3);
+cart.add(book4);
+
+ShoppingCart.prototype.getTotal = function(){
+  
+    var total = this.cart.reduce(function(finalTotal, item){ 
+           finalTotal += item.getSubtotal();
+           return finalTotal;
+      
+}, 0);
+  
+    return total;
+}
+
+console.log(cart);  
+var subtotal = cart.getTotal();
+console.log(subtotal);
+
+
+//q3
+
+var numbers = [1, 2, 3, 4, 5];
+
+
+Array.prototype.map2 = function(callbackFunction){
+  var second = [];
+  for (var i = 0; i < numbers.length; i++){
+     second.push(callbackFunction(this[i]));
+  }
+  
+  return second;
+}
+
+var numbersDoubled = numbers.map2(function(number) {
+  return number * 2;
+});
+
+console.log(numbersDoubled); // should equal [2, 4, 6, 8, 10]
+
+</script>
